@@ -1,0 +1,11 @@
+version: "3.9"
+services:
+  api:
+    build: . # Construir a partir do Dockerfile no diretório atual
+    ports:
+      - "8080:8080" 
+    volumes:
+      - ./titanic_naive_bayes_model:/titanic_naive_bayes_model # Mapeia o modelo para o contêiner
+      - ./label_encoder_sex.pkl:/label_encoder_sex.pkl # Mapeia o encoder para o contêiner
+      - ./label_encoder_embarked.pkl:/label_encoder_embarked.pkl # Mapeia o encoder para o contêiner
+    command: uvicorn main:app --host 0.0.0.0 --port 8080 # Comando para iniciar a API
