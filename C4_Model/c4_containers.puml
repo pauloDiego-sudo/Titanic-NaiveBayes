@@ -1,0 +1,21 @@
+@startuml C4_Contêiner
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+LAYOUT_WITH_LEGEND()
+
+Person(usuario, "Usuário", "Um usuário do sistema de previsão de sobrevivência do Titanic")
+System_Boundary(c1, "Sistema de Previsão de Sobrevivência do Titanic") {
+    Container(frontend, "Aplicação Frontend", "Flutter", "Fornece interface de usuário para previsão")
+    Container(api, "Aplicação API", "Python, FastAPI", "Processa requisições de previsão")
+    Container(ml_model, "Modelo de ML", "Python, Scikit-learn", "Prevê a probabilidade de sobrevivência")
+    ContainerDb(model_storage, "Armazenamento do Modelo", "Joblib", "Armazena modelo treinado e codificadores")
+}
+System_Ext(dataset_titanic, "Dataset do Titanic", "Dados históricos dos passageiros do Titanic")
+
+Rel(usuario, frontend, "Interage com", "HTTPS")
+Rel(frontend, api, "Faz chamadas à rota /predict", "HTTPS/JSON")
+Rel(api, ml_model, "Usa")
+Rel(ml_model, model_storage, "Lê de")
+Rel_U(ml_model, dataset_titanic, "Treinado com")
+
+@enduml

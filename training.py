@@ -6,7 +6,6 @@ import numpy as np
 import pandas as pd
 import joblib
 
-# Load the Titanic dataset uploaded by the user
 file_path = 'train.csv'
 titanic_data = pd.read_csv(file_path)
 

@@ -5,8 +5,8 @@ from fastapi.middleware.cors import CORSMiddleware
 
 # Carregando o modelo e os Encoders
 loaded_model = joblib.load('titanic_naive_bayes_model.pkl') 
-label_encoder_sex = joblib.load('label_encoder_sex.pkl')  # Certifique-se que você salvou o encoder durante o treinamento
-label_encoder_embarked = joblib.load('label_encoder_embarked.pkl') # Certifique-se que você salvou o encoder durante o treinamento
+label_encoder_sex = joblib.load('label_encoder_sex.pkl')  
+label_encoder_embarked = joblib.load('label_encoder_embarked.pkl') 
 
 app = FastAPI()
 
@@ -30,7 +30,7 @@ class Passenger(BaseModel):
     fare: float
     embarked: str
 
-# Função de previsão (igual ao seu exemplo)
+# Função de previsão 
 def predict_survival(pclass, sex, age, sibsp, parch, fare, embarked):
     sex_encoded = label_encoder_sex.transform([sex])[0]
     embarked_encoded = label_encoder_embarked.transform([embarked])[0]
@@ -49,13 +49,9 @@ def predict(passenger: Passenger):
 # Rota /survived 
 @app.get("/survived")
 def survived_passengers():
-    # Lógica para retornar passageiros que sobreviveram (você precisará de dados para isso)
-    # Exemplo (substitua por sua lógica real):
     return {"message": "Esta funcionalidade ainda não foi implementada. Retornará uma lista de passageiros que sobreviveram."} 
 
 # Rota /died
 @app.get("/died")
 def died_passengers():
-    # Lógica para retornar passageiros que morreram (você precisará de dados para isso)
-    # Exemplo (substitua por sua lógica real):
     return {"message": "Esta funcionalidade ainda não foi implementada. Retornará uma lista de passageiros que morreram."}

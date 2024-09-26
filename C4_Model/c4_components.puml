@@ -1,0 +1,26 @@
+@startuml C4_Componente
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+LAYOUT_WITH_LEGEND()
+
+Container_Boundary(api, "Aplicação API") {
+    Component(predict_endpoint, "Endpoint de Previsão", "Rota FastAPI", "Processa requisições de previsão")
+    Component(data_validator, "Validador de Dados", "Pydantic", "Valida dados de entrada")
+}
+
+Container_Boundary(ml_model, "Modelo de ML") {
+    Component(preprocessor, "Pré-processador", "Python", "Prepara dados para previsão")
+    Component(naive_bayes, "Modelo Naive Bayes", "Scikit-learn", "Realiza previsões de sobrevivência")
+}
+
+ContainerDb(model_storage, "Armazenamento do Modelo", "Joblib", "Armazena modelo treinado e codificadores")
+System_Ext(dataset_titanic, "Dataset do Titanic", "Dados históricos dos passageiros do Titanic")
+
+Rel(predict_endpoint, data_validator, "Usa")
+Rel(predict_endpoint, preprocessor, "Usa")
+Rel(preprocessor, naive_bayes, "Alimenta dados para")
+Rel(naive_bayes, model_storage, "Carrega modelo de")
+
+Rel_U(naive_bayes, dataset_titanic, "Treinado com")
+
+@enduml

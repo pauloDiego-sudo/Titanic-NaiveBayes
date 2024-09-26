@@ -1,0 +1,13 @@
+@startuml C4_Contexto
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+
+LAYOUT_WITH_LEGEND()
+
+Person(usuario, "Usuário", "Um usuário do sistema de previsão de sobrevivência do Titanic")
+System(sistema_titanic, "Sistema de Previsão de Sobrevivência do Titanic", "Prevê a probabilidade de sobrevivência para passageiros do Titanic")
+System_Ext(dataset_titanic, "Dataset do Titanic", "Dados históricos dos passageiros do Titanic")
+
+Rel(usuario, sistema_titanic, "Usa")
+Rel(sistema_titanic, dataset_titanic, "Lê dados de")
+
+@enduml
